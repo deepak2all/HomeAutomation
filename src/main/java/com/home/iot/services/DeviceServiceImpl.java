@@ -16,6 +16,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * DeviceServiceImpl is service layer is a layer in an application that facilitates communication between
+ * the DeviceController and the persistence layer, DeviceRepository.
+ * Additionally, business logic to configure devices, is stored in the service layer.
+ */
 @Service
 public class DeviceServiceImpl implements DeviceService {
 

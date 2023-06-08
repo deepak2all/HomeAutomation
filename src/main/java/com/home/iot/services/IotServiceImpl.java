@@ -13,6 +13,11 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.util.Arrays;
 
+/**
+ * IotServiceImpl is service layer is a layer in an application that facilitates communication between
+ * the IotController and the persistence layer, IotRepository.
+ * Additionally, business logic to operate IOT devices, is stored in the service layer.
+ */
 @Service
 public class IotServiceImpl  implements IotService{
 

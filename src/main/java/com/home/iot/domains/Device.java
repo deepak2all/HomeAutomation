@@ -1,19 +1,34 @@
 package com.home.iot.domains;
 
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@Data
 @NoArgsConstructor
 public class Device {
 
+	@Min(1)
+	@Max(1000)
 	private long deviceId;
+
+	@NotEmpty(message = "Device Name is required")
 	private String deviceName;
+
+	@NotEmpty(message = "Device Type is required")
 	private String deviceType; // OnOff type / Rotary switch
+
+	@NotEmpty(message = "Device Status is required")
 	private String deviceStatus;
+
+	@NotEmpty(message = "Device Info is required")
 	private String deviceInfo;
 
+	@NotEmpty(message = "Slot id is required")
 	private long slotId;
 
 	public Device(long deviceId, String deviceName, String deviceType, String deviceStatus, String deviceInfo) {

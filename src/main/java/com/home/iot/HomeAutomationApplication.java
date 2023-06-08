@@ -12,6 +12,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @SpringBootApplication
 public class HomeAutomationApplication implements CommandLineRunner {
@@ -24,7 +28,7 @@ public class HomeAutomationApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(HomeAutomationApplication.class, args);
-		//deviceService.addDeviceToSlot(2, device10);
+		openHomePage();
 	}
 
 	@Override
@@ -51,5 +55,18 @@ public class HomeAutomationApplication implements CommandLineRunner {
 	private void postConstruct() {
 		Device device8 = new Device (8, "WashingMachine", "On/Off", "OFF", "Washing Machine is Off");
 		deviceService.save (device8);
+	}
+
+	/**
+	 * Auto-launching of home page as soon as server comes up
+	 */
+	private static void openHomePage() {
+		try {
+			URI homepage = new URI("http://localhost:8500/");
+			System.setProperty("java.awt.headless", "false");
+			Desktop.getDesktop().browse(homepage);
+		} catch (URISyntaxException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
