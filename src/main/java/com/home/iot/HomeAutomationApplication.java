@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,8 +22,8 @@ import java.net.URISyntaxException;
 @SpringBootApplication
 public class HomeAutomationApplication implements CommandLineRunner {
 
-	@Autowired
-	private BuildProperties buildProperties;
+	//@Autowired
+	//private BuildProperties buildProperties;
 
 	@Autowired
 	DeviceService deviceService;
@@ -66,8 +65,8 @@ public class HomeAutomationApplication implements CommandLineRunner {
 
 	private void appInfo() {
 		log.info(":::::  APP  INFO   ::::::");
-		log.info("App Name   : " + buildProperties.getName());
-		log.info("App Version   : " + buildProperties.getVersion());
+		//log.info("App Name   : " + buildProperties.getName());
+		//log.info("App Version   : " + buildProperties.getVersion());
 	}
 
 	/**
