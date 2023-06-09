@@ -37,7 +37,7 @@ public class DeviceController {
     }
 
     @PostMapping(value = "/slots/{slotId}/devices/", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    @ApiOperation(value = "Endpoint to add a remote device / registering it to a slot (if slotId is not 0)")
+    @ApiOperation(value = "Endpoint to add a remote device and registering it to a slot (if slotId is not 0)")
     public ResponseEntity<Device> addDeviceToSlot(@PathVariable("slotId") String slotId, @RequestBody Device device){
         long sId = Long.parseLong(slotId);
         return ResponseEntity.ok().body(service.addDeviceToSlot(sId, device));

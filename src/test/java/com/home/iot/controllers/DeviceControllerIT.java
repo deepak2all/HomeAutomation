@@ -7,7 +7,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,7 +17,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SpringBootTest(classes = HomeAutomationApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DeviceControllerIT {
 
-    @LocalServerPort
+    //@LocalServerPort
     private int port;
 
     TestRestTemplate restTemplate = new TestRestTemplate();
@@ -40,6 +39,6 @@ public class DeviceControllerIT {
     }
 
     private String createURLWithPort(String uri) {
-        return "http://localhost:" + port + uri;
+        return "http://localhost:" + 8500 + uri;
     }
 }
