@@ -1,0 +1,422 @@
+{
+	"info": {
+		"_postman_id": "deb36aba-a5fe-4541-8aa8-4f4537254108",
+		"name": "HomeAutomation",
+		"description": "HomeAutomation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetAllSlots",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8500/iot/api/v1/slots",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8500",
+					"path": [
+						"iot",
+						"api",
+						"v1",
+						"slots"
+					]
+				},
+				"description": "GetAllSlots"
+			},
+			"response": []
+		},
+		{
+			"name": "GetParticularSlot",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8500/iot/api/v1/slots/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8500",
+					"path": [
+						"iot",
+						"api",
+						"v1",
+						"slots",
+						"1"
+					]
+				},
+				"description": "GetParticularSlot"
+			},
+			"response": []
+		},
+		{
+			"name": "AddNewSlot",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"slotId\": 11,\r\n    \"slotName\": \"Slot-11\",\r\n    \"slotType\": \"large\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8500/iot/api/v1/slots/",
+					"host": [
+						"localhost"
+					],
+					"port": "8500",
+					"path": [
+						"iot",
+						"api",
+						"v1",
+						"slots",
+						""
+					]
+				},
+				"description": "Add New Slot"
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllDevices",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8500/iot/api/v1/slots/devices",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8500",
+					"path": [
+						"iot",
+						"api",
+						"v1",
+						"slots",
+						"devices"
+					]
+				},
+				"description": "GetAllDevices"
+			},
+			"response": []
+		},
+		{
+			"name": "GetParticularDevice",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8500/iot/api/v1/slots/0/devices/10",
+					"host": [
+						"localhost"
+					],
+					"port": "8500",
+					"path": [
+						"iot",
+						"api",
+						"v1",
+						"slots",
+						"0",
+						"devices",
+						"10"
+					]
+				},
+				"description": "GetParticularDevice"
+			},
+			"response": []
+		},
+		{
+			"name": "AddNewDeviceToSlot",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"deviceId\": 5,\r\n        \"deviceName\": \"Study Room Light 5\",\r\n        \"deviceType\": \"On/Off\",\r\n        \"deviceStatus\": \"ON\",\r\n        \"deviceInfo\": \"Study Room Light is Switched ON\",\r\n        \"slotId\": 10\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8500/iot/api/v1/slots/10/devices/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8500",
+					"path": [
+						"iot",
+						"api",
+						"v1",
+						"slots",
+						"10",
+						"devices",
+						""
+					]
+				},
+				"description": "AddNewDeviceToSlot"
+			},
+			"response": []
+		},
+		{
+			"name": "GetVacantSlots",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8500/iot/api/v1/slots/vacantSlots",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8500",
+					"path": [
+						"iot",
+						"api",
+						"v1",
+						"slots",
+						"vacantSlots"
+					]
+				},
+				"description": "GetVacantSlots"
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateParticularSlotInfo",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"slotId\": 10,\r\n        \"slotName\": \"Slot-10\",\r\n        \"slotType\": \"large\",\r\n        \"device\": {\r\n              \"deviceId\": 5,\r\n              \"deviceName\": \"Study Room Light 5\",\r\n              \"deviceType\": \"On/Off\",\r\n              \"deviceStatus\": \"ON\",\r\n              \"deviceInfo\": \"Study Room Light is Switched ON\",\r\n              \"slotId\": 10\r\n        }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8500/iot/api/v1/slots/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8500",
+					"path": [
+						"iot",
+						"api",
+						"v1",
+						"slots",
+						"10"
+					]
+				},
+				"description": "UpdateParticularSlotInfo"
+			},
+			"response": []
+		},
+		{
+			"name": "OperateAnyDevice",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n              \"deviceId\": 5,\r\n              \"deviceName\": \"Study Room Light 5\",\r\n              \"deviceType\": \"On/Off\",\r\n              \"deviceStatus\": \"ON\",\r\n              \"deviceInfo\": \"Study Room Light is Switched ON\",\r\n              \"slotId\": 10\r\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8500/iot/api/v1/operateDevice/slots/10/devices/5/OFF",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8500",
+					"path": [
+						"iot",
+						"api",
+						"v1",
+						"operateDevice",
+						"slots",
+						"10",
+						"devices",
+						"5",
+						"OFF"
+					]
+				},
+				"description": "OperateAnyDevice"
+			},
+			"response": []
+		},
+		{
+			"name": "PerformUndoOperation",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8500/iot/api/v1/operateDevice/undoOperation/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8500",
+					"path": [
+						"iot",
+						"api",
+						"v1",
+						"operateDevice",
+						"undoOperation",
+						"1"
+					]
+				},
+				"description": "PerformUndoOperation"
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteAnUnregisteredDevice",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8500/iot/api/v1/slots/0/devices/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8500",
+					"path": [
+						"iot",
+						"api",
+						"v1",
+						"slots",
+						"0",
+						"devices",
+						"1"
+					]
+				},
+				"description": "DeleteParticularDevice by specifying the corresponding slotId and deviceId"
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteRegisteredDevice",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8500/iot/api/v1/slots/10/devices/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8500",
+					"path": [
+						"iot",
+						"api",
+						"v1",
+						"slots",
+						"10",
+						"devices",
+						"5"
+					]
+				},
+				"description": "Delete a device already assigned to a slot.\r\nSpecify the corresponding slotId and deviceId"
+			},
+			"response": []
+		},
+		{
+			"name": "AddNewDevice ",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"deviceId\": 2,\r\n    \"deviceName\": \"Study Room Light 5\",\r\n    \"deviceType\": \"On/Off\",\r\n    \"deviceStatus\": \"ON\",\r\n    \"deviceInfo\": \"Study Room Light is Switched ON\",\r\n    \"slotId\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8500/iot/api/v1/slots/0/devices/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8500",
+					"path": [
+						"iot",
+						"api",
+						"v1",
+						"slots",
+						"0",
+						"devices",
+						""
+					]
+				},
+				"description": "Add a new device but not assigning to any slot.\r\nThis is done by specifying the slot to 0"
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteParticularSlot",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8500/iot/api/v1/slots/9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8500",
+					"path": [
+						"iot",
+						"api",
+						"v1",
+						"slots",
+						"9"
+					]
+				},
+				"description": "Delete a Particular Slot by specifying the slot id.\r\nSlot will be deleted on if it's empty (not associated with any device)"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
