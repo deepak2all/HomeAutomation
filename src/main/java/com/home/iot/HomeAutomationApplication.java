@@ -4,10 +4,12 @@ import com.home.iot.domains.Device;
 import com.home.iot.domains.Slot;
 import com.home.iot.services.DeviceService;
 import com.home.iot.services.SlotService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,8 +19,12 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+@Log4j2
 @SpringBootApplication
 public class HomeAutomationApplication implements CommandLineRunner {
+
+	@Autowired
+	private BuildProperties buildProperties;
 
 	@Autowired
 	DeviceService deviceService;
@@ -53,8 +59,15 @@ public class HomeAutomationApplication implements CommandLineRunner {
 
 	@PostConstruct
 	private void postConstruct() {
+		appInfo();
 		Device device8 = new Device (8, "WashingMachine", "On/Off", "OFF", "Washing Machine is Off");
 		deviceService.save (device8);
+	}
+
+	private void appInfo() {
+		log.info(":::::  APP  INFO   ::::::");
+		log.info("App Name   : " + buildProperties.getName());
+		log.info("App Version   : " + buildProperties.getVersion());
 	}
 
 	/**

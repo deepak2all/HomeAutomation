@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+	<Properties>
+		<Property name="log-path">./logs</Property>
+		<Property name="ERROR_LOG_PATTERN">%d{dd/MM/yyy HH:mm:ss,SSS} %p %m%n</Property>
+		<Property name="STDERR_PATTERN">%d{dd/MM/yyy HH:mm:ss,SSS}- %highlight{%level}{FATAL=bg_red, ERROR=red, WARN=yellow} %c{1}: %m%n</Property>
+		<Property name="INFO_LOG_PATTERN">%d{dd/MM/yyy HH:mm:ss,SSS}- %highlight{%level}{FATAL=bg_red, ERROR=red, WARN=yellow, INFO=green, DEBUG=blue} []%t] %c - %m%n</Property>
+	</Properties>
+	<!-- Defined custom levels for filtering the user data -->
+	<CustomLevels>
+		<CustomLevel name="STATS" intLevel="50" />
+	</CustomLevels>
+    <Appenders>
+    	<!-- To define std out console logs -->
+        <Console name="stdout" target="SYSTEM_OUT"> <!-- 1 Non Error -->
+            <PatternLayout pattern="%msg%n%throwable"/>
+        </Console>
+        <!-- To define std err console logs -->
+        <Console name="stderr" target="SYSTEM_ERR"> <!-- 2 Error and Warning -->
+            <PatternLayout pattern="${STDERR_PATTERN}"/>
+            <LevelRangeFilter minLevel="ERROR" maxLevel="WARN" onMatch="ACCEPT" onMismatch="DENY" />
+        </Console>
+    	<!-- To define application logs -->
+		<RollingFile name="appLog" fileName="${log-path}/HomeAutomation.log"
+			filePattern="${log-path}/Registration-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout pattern="${INFO_LOG_PATTERN}"/>
+			<Policies>
+				<OnStartupTriggeringPolicy/>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+				<TimeBasedTriggeringPolicy/>
+			</Policies>
+			<DefaultRolloverStrategy max="5"/>
+		</RollingFile>
+	    <!-- To define error logs -->
+		<RollingFile name="errorLog" fileName="${log-path}/error.log"
+			filePattern="${log-path}/error-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout pattern="${ERROR_LOG_PATTERN}"/>
+			<Policies>
+				<OnStartupTriggeringPolicy/>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+				<TimeBasedTriggeringPolicy/>
+			</Policies>
+			<DefaultRolloverStrategy max="5"/>
+		</RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="root" level="INFO" additivity="false">
+        	<AppenderRef ref="stdout" level="STATS"/>
+            <AppenderRef ref="stderr"/>
+            <AppenderRef ref="appLog"/>
+        </Logger>
+        <Logger name="org.springframework.boot" level="ERROR" additivity="false">
+            <AppenderRef ref="stdout" level="STATS"/>
+            <AppenderRef ref="stderr"/>
+            <AppenderRef ref="appLog"/>
+        </Logger>
+        <Logger name="com.home.iot" additivity="false">
+            <AppenderRef ref="stdout" level="STATS"/>
+            <AppenderRef ref="stderr"/>
+            <AppenderRef ref="appLog"/>
+            <AppenderRef ref="errorLog"/>
+        </Logger>
+    </Loggers>
+</Configuration>
