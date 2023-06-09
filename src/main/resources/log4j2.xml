@@ -22,7 +22,7 @@
         </Console>
     	<!-- To define application logs -->
 		<RollingFile name="appLog" fileName="${log-path}/HomeAutomation.log"
-			filePattern="${log-path}/Registration-%d{yyyy-MM-dd}-%i.log">
+			filePattern="${log-path}/HomeAutomation-%d{yyyy-MM-dd}-%i.log">
 			<PatternLayout pattern="${INFO_LOG_PATTERN}"/>
 			<Policies>
 				<OnStartupTriggeringPolicy/>
