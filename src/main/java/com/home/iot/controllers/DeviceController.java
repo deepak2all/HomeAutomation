@@ -37,7 +37,7 @@ public class DeviceController {
     }
 
     @PostMapping(value = "/slots/{slotId}/devices/", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    @ApiOperation(value = "Endpoint to register a remote device by adding to a slot")
+    @ApiOperation(value = "Endpoint to add a remote device / registering it to a slot (if slotId is not 0)")
     public ResponseEntity<Device> addDeviceToSlot(@PathVariable("slotId") String slotId, @RequestBody Device device){
         long sId = Long.parseLong(slotId);
         return ResponseEntity.ok().body(service.addDeviceToSlot(sId, device));
@@ -62,8 +62,15 @@ public class DeviceController {
     }
 
     @PutMapping(value = "/slots/{slotId}/devices/{deviceId}", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    @ApiOperation(value = "Endpoint to update a registered remote device by specifying the deviceId and slotId")
+    @ApiOperation(value = "Endpoint to update a remote device by specifying the deviceId and slotId; " +
+            "Specify sloId as 0 to unregister")
     public ResponseEntity<Device> updateDevice(@PathVariable("slotId") String slotId, @RequestBody Device device){
         return ResponseEntity.ok().body(service.updateDevice(Long.parseLong(slotId), device));
+    }
+
+    @DeleteMapping(value = "/slots/{slotId}/devices/{deviceId}")
+    @ApiOperation(value = "Endpoint to delete a remote device by specifying the deviceId and slotId")
+    public ResponseEntity<String> deleteDevice(@PathVariable("slotId") String slotId, @PathVariable("deviceId") String deviceId){
+        return ResponseEntity.ok().body(service.deleteDevice(Long.parseLong(slotId), Long.parseLong(deviceId)));
     }
 }

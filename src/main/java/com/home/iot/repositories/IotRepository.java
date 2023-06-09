@@ -1,12 +1,9 @@
 package com.home.iot.repositories;
 
 import com.home.iot.domains.Device;
-import com.home.iot.exceptions.IncorrectInputException;
+import com.home.iot.util.ApplicationConstants;
 import com.home.iot.util.ExecutionStateRecorder;
 import org.springframework.stereotype.Repository;
-
-import java.util.ArrayDeque;
-import java.util.Deque;
 
 @Repository
 public class IotRepository {
@@ -28,7 +25,7 @@ public class IotRepository {
 
     private void captureUserActions(ExecutionStateRecorder recordedState) {
         // Ability to add 10 items
-        if (ExecutionStateRecorder.operationsRegister.size() < 5) {
+        if (ExecutionStateRecorder.operationsRegister.size() < ApplicationConstants.maxCacheSize) {
             //Simply add the data
             ExecutionStateRecorder.operationsRegister.offer(recordedState);
         } else {

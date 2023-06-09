@@ -43,9 +43,16 @@ public class DeviceServiceImpl implements DeviceService {
         return deviceRepository.updateDevice(device);
     }
 
+    @SneakyThrows
     @Override
-    public void deleteById(long id) {
-
+    public String deleteDevice(long slotId, long deviceId) {
+        Device device = deviceRepository.findDeviceById(slotId, deviceId);
+        if(device.getSlotId() != 0) {
+            Slot origSlot = getCorrespondingSlots(slotId);
+            origSlot.setDevice(null);
+            updateSlot(slotId, origSlot);
+        }
+        return deviceRepository.deleteDevice(deviceId);
     }
 
     @Override
@@ -60,6 +67,10 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public Device addDeviceToSlot(long slotId, Device device) {
+        if(slotId == 0) {
+            // Device added but not assigned to any slot
+            return deviceRepository.addDeviceToSlot(slotId, device);
+        }
         // Use RestTemplate to get check the slot
         List<Long> emptySlotIds = getEmptySlots().stream().map(Slot::getSlotId).collect(Collectors.toList());
 

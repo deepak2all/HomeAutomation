@@ -61,6 +61,18 @@ public class SlotController {
         }
     }
 
+    @DeleteMapping("/slots/{slotId}")
+    @ApiOperation(value = "Endpoint to get a delete a particular slot (only if it's empty)")
+    public ResponseEntity<String> deleteSlotById(
+            @PathVariable("slotId") @Min(value = 1, message = "id must be greater than or equal to 1") @Max(value = 1000, message = "id must be lower than or equal to 1000") String slotId){
+        try {
+            long id = Long.parseLong(slotId);
+            return ResponseEntity.ok().body(service.deleteSlot(id));
+        } catch (Exception e) {
+            throw new IncorrectInputException("Either Incorrect input provided Or slot not vacant :: " + slotId);
+        }
+    }
+
     @GetMapping("/slots/vacantSlots")
     @ApiOperation(value = "Endpoint to get all the vacant slots' info")
     public ResponseEntity<Collection<Slot>> findVacantSlots(){

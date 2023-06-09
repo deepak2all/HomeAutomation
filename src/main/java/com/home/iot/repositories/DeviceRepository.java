@@ -38,4 +38,9 @@ public class DeviceRepository {
         devices.put(device.getDeviceId(), device);
         return device;
     }
+
+    public String deleteDevice(long deviceId) {
+        devices.remove(deviceId);
+        return String.format("Device %d is deleted",deviceId);
+    }
 }

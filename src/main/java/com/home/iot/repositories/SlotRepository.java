@@ -1,7 +1,6 @@
 package com.home.iot.repositories;
 
 import com.home.iot.domains.Slot;
-import com.home.iot.exceptions.IncorrectInputException;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -39,4 +38,8 @@ public class SlotRepository {
                 .collect(Collectors.toList());
     }
 
+    public String deleteSlot(long slotId) {
+        slots.remove(slotId);
+        return String.format("Slot %d is deleted",slotId);
+    }
 }

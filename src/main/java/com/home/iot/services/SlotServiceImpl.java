@@ -1,6 +1,7 @@
 package com.home.iot.services;
 
 import com.home.iot.domains.Slot;
+import com.home.iot.exceptions.IncorrectInputException;
 import com.home.iot.repositories.SlotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,15 @@ public class SlotServiceImpl implements SlotService {
     @Override
     public Slot update(Slot slot) {
         return slotRepository.update(slot);
+    }
+
+    @Override
+    public String deleteSlot(long slotId) {
+        if(slotRepository.findVacantSlots().stream().anyMatch(x -> x.getSlotId() == slotId)) {
+            return slotRepository.deleteSlot(slotId);
+        } else {
+            throw new IncorrectInputException(String.format("Slot %d is not empty",slotId));
+        }
     }
 
     @Override

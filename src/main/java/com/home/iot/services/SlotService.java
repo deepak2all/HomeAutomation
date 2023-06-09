@@ -21,6 +21,8 @@ public interface SlotService {
     // Update slot
     Slot update(Slot slot);
 
-	// Remove slots
+    String deleteSlot(long id);
+
+    // Remove slots
 
 }

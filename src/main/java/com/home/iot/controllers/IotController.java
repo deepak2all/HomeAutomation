@@ -4,6 +4,8 @@ import com.home.iot.domains.Device;
 import com.home.iot.services.IotService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -37,14 +39,20 @@ public class IotController {
     @PutMapping(value = "/operateDevice/undoOperation/{undoCount}")
     @ApiOperation(value = "To undo Nth operation by specifying the undoCount")
     public ResponseEntity<String> undoLastNthOperation (
-                                                 @PathVariable("undoCount") String undoCount){
+            @PathVariable("undoCount")
+            @Min(value = 1, message = "id must be greater than or equal to 1")
+            @Max(value = 10, message = "id must be lower than or equal to 10")
+            String undoCount){
         return ResponseEntity.ok().body(service.undoLastNthOperation(Long.parseLong(undoCount)));
     }
 
     @PutMapping(value = "/operateDevice/undoOperations/{undoCount}")
     @ApiOperation(value = "To undo N operations by specifying the undoCount")
     public ResponseEntity<String> undoLastNOperations (
-            @PathVariable("undoCount") String undoCount){
+            @PathVariable("undoCount")
+            @Min(value = 1, message = "id must be greater than or equal to 1")
+            @Max(value = 10, message = "id must be lower than or equal to 10")
+            String undoCount){
         return ResponseEntity.ok().body(service.undoLastXOperations(Long.parseLong(undoCount)));
     }
 }

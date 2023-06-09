@@ -1,8 +1,8 @@
 package com.home.iot.services;
 
-import java.util.List;
-
 import com.home.iot.domains.Device;
+
+import java.util.List;
 
 public interface DeviceService {
 
@@ -15,7 +15,9 @@ public interface DeviceService {
 
 	// Update device
 	Device updateDevice(long slotId, Device device);
-	void deleteById(long id);
+
+	// Delete a device
+	String deleteDevice(long slotId, long deviceId);
 
 	// Register a device
 	Device addDeviceToSlot(long slotId, Device device);

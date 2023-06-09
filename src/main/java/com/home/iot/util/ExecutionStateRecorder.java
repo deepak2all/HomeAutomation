@@ -7,7 +7,7 @@ import java.util.Deque;
 
 public class ExecutionStateRecorder {
 
-    public static Deque<ExecutionStateRecorder> operationsRegister = new ArrayDeque<>(5);
+    public static Deque<ExecutionStateRecorder> operationsRegister = new ArrayDeque<>(ApplicationConstants.maxCacheSize);
 
     private Device device; //Remote device that needs to be controlled
 
