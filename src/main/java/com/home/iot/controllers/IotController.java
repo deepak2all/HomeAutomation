@@ -1,6 +1,6 @@
 package com.home.iot.controllers;
 
-import com.home.iot.domains.Device;
+import com.home.iot.domains.DeviceDTO;
 import com.home.iot.services.IotService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,10 +30,10 @@ public class IotController {
     @PutMapping(value = "/operateDevice/slots/{slotId}/devices/{deviceId}/{userAction}"
             , consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ApiOperation(value = "Operate a device specifying slotId, deviceId and action (ON / OFF)")
-    public ResponseEntity<Device> operateDevice (@RequestBody Device device,
-                                                 @PathVariable("slotId") String slotId,
-                                                 @PathVariable("userAction") String userAction){
-        return ResponseEntity.ok().body(service.operateDevice(device, slotId, userAction));
+    public ResponseEntity<DeviceDTO> operateDevice (@RequestBody DeviceDTO deviceDTO,
+                                                    @PathVariable("slotId") String slotId,
+                                                    @PathVariable("userAction") String userAction){
+        return ResponseEntity.ok().body(service.operateDevice(deviceDTO, slotId, userAction));
     }
 
     @PutMapping(value = "/operateDevice/undoOperation/{undoCount}")
@@ -48,7 +48,7 @@ public class IotController {
 
     @PutMapping(value = "/operateDevice/undoOperations/{undoCount}")
     @ApiOperation(value = "To undo N operations by specifying the undoCount")
-    public ResponseEntity<String> undoLastNOperations (
+    public ResponseEntity<String> undoLastXOperations (
             @PathVariable("undoCount")
             @Min(value = 1, message = "id must be greater than or equal to 1")
             @Max(value = 10, message = "id must be lower than or equal to 10")

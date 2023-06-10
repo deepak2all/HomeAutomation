@@ -1,6 +1,6 @@
 package com.home.iot.controllers;
 
-import com.home.iot.domains.Device;
+import com.home.iot.domains.DeviceDTO;
 import com.home.iot.exceptions.IncorrectInputException;
 import com.home.iot.services.DeviceService;
 import io.swagger.annotations.Api;
@@ -32,26 +32,26 @@ public class DeviceController {
 
     @PostMapping(value = "/slots/devices/", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ApiOperation(value = "Endpoint to add a remote device")
-    public ResponseEntity<Device> addDevice(@RequestBody Device device){
-        return ResponseEntity.ok().body(service.save(device));
+    public ResponseEntity<DeviceDTO> addDevice(@RequestBody DeviceDTO deviceDTO){
+        return ResponseEntity.ok().body(service.save(deviceDTO));
     }
 
     @PostMapping(value = "/slots/{slotId}/devices/", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ApiOperation(value = "Endpoint to add a remote device and registering it to a slot (if slotId is not 0)")
-    public ResponseEntity<Device> addDeviceToSlot(@PathVariable("slotId") String slotId, @RequestBody Device device){
+    public ResponseEntity<DeviceDTO> addDeviceToSlot(@PathVariable("slotId") String slotId, @RequestBody DeviceDTO deviceDTO){
         long sId = Long.parseLong(slotId);
-        return ResponseEntity.ok().body(service.addDeviceToSlot(sId, device));
+        return ResponseEntity.ok().body(service.addDeviceToSlot(sId, deviceDTO));
     }
 
     @GetMapping("/slots/devices")
     @ApiOperation(value = "Endpoint to get all the remote devices (Both registered and unregistered)")
-    public ResponseEntity<Collection<Device>> findAllDevices(){
+    public ResponseEntity<Collection<DeviceDTO>> findAllDevices(){
         return ResponseEntity.ok().body(service.findAll());
     }
 
     @GetMapping("/slots/{slotId}/devices/{deviceId}")
     @ApiOperation(value = "Endpoint to get a particular remote device by specifying it's id")
-    public ResponseEntity<Device> findDeviceById(
+    public ResponseEntity<DeviceDTO> findDeviceById(
             @PathVariable("slotId") @Min(value = 1, message = "id must be greater than or equal to 1") @Max(value = 1000, message = "id must be lower than or equal to 1000") String slotId,
             @PathVariable("deviceId") @Min(value = 1, message = "id must be greater than or equal to 1") @Max(value = 1000, message = "id must be lower than or equal to 1000") String deviceId){
         try {
@@ -64,8 +64,8 @@ public class DeviceController {
     @PutMapping(value = "/slots/{slotId}/devices/{deviceId}", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ApiOperation(value = "Endpoint to update a remote device by specifying the deviceId and slotId; " +
             "Specify sloId as 0 to unregister")
-    public ResponseEntity<Device> updateDevice(@PathVariable("slotId") String slotId, @RequestBody Device device){
-        return ResponseEntity.ok().body(service.updateDevice(Long.parseLong(slotId), device));
+    public ResponseEntity<DeviceDTO> updateDevice(@PathVariable("slotId") String slotId, @RequestBody DeviceDTO deviceDTO){
+        return ResponseEntity.ok().body(service.updateDevice(Long.parseLong(slotId), deviceDTO));
     }
 
     @DeleteMapping(value = "/slots/{slotId}/devices/{deviceId}")

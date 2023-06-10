@@ -1,6 +1,6 @@
 package com.home.iot.repositories;
 
-import com.home.iot.domains.Slot;
+import com.home.iot.domains.SlotDTO;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -10,31 +10,31 @@ import java.util.stream.Collectors;
 @Repository
 public class SlotRepository {
 
-    HashMap<Long, Slot> slots = new HashMap<>();
+    HashMap<Long, SlotDTO> slots = new HashMap<>();
 
-    public Slot save(Slot slot) {
-        return slots.putIfAbsent(slot.getSlotId(), slot);
+    public SlotDTO save(SlotDTO slotDTO) {
+        return slots.putIfAbsent(slotDTO.getSlotId(), slotDTO);
     }
 
-    public Slot update(Slot slot) {
-        return slots.put(slot.getSlotId(), slot);
+    public SlotDTO update(SlotDTO slotDTO) {
+        return slots.put(slotDTO.getSlotId(), slotDTO);
     }
 
-    public List<Slot> findAll() {
+    public List<SlotDTO> findAll() {
         return slots.values().stream()
                 .collect(Collectors.toList());
     }
 
-    public Slot findSlotById(long slotId) throws Exception {
+    public SlotDTO findSlotById(long slotId) throws Exception {
         return slots.values().stream()
                 .filter(x -> x.getSlotId() == slotId)
                 .findAny()
                 .get();
     }
 
-    public List<Slot> findVacantSlots() {
+    public List<SlotDTO> findVacantSlots() {
         return slots.values().stream()
-                .filter(x -> x.getDevice() == null)
+                .filter(x -> x.getDeviceDTO() == null)
                 .collect(Collectors.toList());
     }
 

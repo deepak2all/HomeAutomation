@@ -1,7 +1,7 @@
 package com.home.iot.services;
 
-import com.home.iot.domains.Device;
-import com.home.iot.domains.Slot;
+import com.home.iot.domains.DeviceDTO;
+import com.home.iot.domains.SlotDTO;
 import com.home.iot.exceptions.IncorrectInputException;
 import com.home.iot.repositories.DeviceRepository;
 import lombok.SneakyThrows;
@@ -31,89 +31,89 @@ public class DeviceServiceImpl implements DeviceService {
     private DeviceRepository deviceRepository;
 
     @Override
-    public Device save(Device device) {
-        return deviceRepository.save(device);
+    public DeviceDTO save(DeviceDTO deviceDTO) {
+        return deviceRepository.save(deviceDTO);
     }
 
     @Override
-    public Device updateDevice(long slotId, Device device) {
-        Slot origSlot = getCorrespondingSlots(slotId);
-        origSlot.setDevice(device);
-        updateSlot(slotId, origSlot);
-        return deviceRepository.updateDevice(device);
+    public DeviceDTO updateDevice(long slotId, DeviceDTO deviceDTO) {
+        SlotDTO origSlotDTO = getCorrespondingSlots(slotId);
+        origSlotDTO.setDeviceDTO(deviceDTO);
+        updateSlot(slotId, origSlotDTO);
+        return deviceRepository.updateDevice(deviceDTO);
     }
 
     @SneakyThrows
     @Override
     public String deleteDevice(long slotId, long deviceId) {
-        Device device = deviceRepository.findDeviceById(slotId, deviceId);
-        if(device.getSlotId() != 0) {
-            Slot origSlot = getCorrespondingSlots(slotId);
-            origSlot.setDevice(null);
-            updateSlot(slotId, origSlot);
+        DeviceDTO deviceDTO = deviceRepository.findDeviceById(slotId, deviceId);
+        if(deviceDTO.getSlotId() != 0) {
+            SlotDTO origSlotDTO = getCorrespondingSlots(slotId);
+            origSlotDTO.setDeviceDTO(null);
+            updateSlot(slotId, origSlotDTO);
         }
         return deviceRepository.deleteDevice(deviceId);
     }
 
     @Override
-    public List<Device> findAll(){
+    public List<DeviceDTO> findAll(){
         return deviceRepository.findAll();
     }
 
     @Override
-    public Device findDeviceById(long slotId, long deviceId) throws Exception {
+    public DeviceDTO findDeviceById(long slotId, long deviceId) throws Exception {
         return deviceRepository.findDeviceById(slotId, deviceId);
     }
 
     @Override
-    public Device addDeviceToSlot(long slotId, Device device) {
+    public DeviceDTO addDeviceToSlot(long slotId, DeviceDTO deviceDTO) {
         if(slotId == 0) {
             // Device added but not assigned to any slot
-            return deviceRepository.addDeviceToSlot(slotId, device);
+            return deviceRepository.addDeviceToSlot(slotId, deviceDTO);
         }
         // Use RestTemplate to get check the slot
-        List<Long> emptySlotIds = getEmptySlots().stream().map(Slot::getSlotId).collect(Collectors.toList());
+        List<Long> emptySlotIds = getEmptySlots().stream().map(SlotDTO::getSlotId).collect(Collectors.toList());
 
         // If slot is found, assign the device
         if( emptySlotIds.contains(slotId) ) {
-            Slot origSlot = getEmptySlots().stream()
+            SlotDTO origSlotDTO = getEmptySlots().stream()
                     .filter(s -> s.getSlotId() == slotId)
                     .findAny().get();
-            origSlot.setDevice(device);
-            updateSlot(slotId, origSlot);
-            return deviceRepository.addDeviceToSlot(slotId, device);
+            origSlotDTO.setDeviceDTO(deviceDTO);
+            updateSlot(slotId, origSlotDTO);
+            return deviceRepository.addDeviceToSlot(slotId, deviceDTO);
         } else {
             throw new IncorrectInputException("Slot Id provided :: " + slotId + " is either occupied or not present (invalid)");
         }
     }
 
     @SneakyThrows
-    private void updateSlot(long slotId, Slot updSlot) {
+    private void updateSlot(long slotId, SlotDTO updSlotDTO) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         URI uri = new URI("http://localhost:8500/iot/api/v1/slots/" + slotId);
 
-        RequestEntity<Slot> requestEntity = new RequestEntity<>(updSlot, headers, HttpMethod.PUT, uri);
-        ParameterizedTypeReference<Slot> typeRef = new ParameterizedTypeReference<>() {};
-        ResponseEntity<Slot> responseEntity = restTemplate.exchange(requestEntity, typeRef);
+        RequestEntity<SlotDTO> requestEntity = new RequestEntity<>(updSlotDTO, headers, HttpMethod.PUT, uri);
+        ParameterizedTypeReference<SlotDTO> typeRef = new ParameterizedTypeReference<>() {};
+        ResponseEntity<SlotDTO> responseEntity = restTemplate.exchange(requestEntity, typeRef);
     }
 
-    public List<Slot> getEmptySlots() {
+    public List<SlotDTO> getEmptySlots() {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        ParameterizedTypeReference<List<Slot>>  parameterizedTypeReference = new ParameterizedTypeReference<>(){};
+        ParameterizedTypeReference<List<SlotDTO>>  parameterizedTypeReference = new ParameterizedTypeReference<>(){};
 
-        ResponseEntity<List<Slot>> exchange = restTemplate.exchange("http://localhost:8500/iot/api/v1/slots/vacantSlots", HttpMethod.GET, entity, parameterizedTypeReference);
-        List<Slot> vacantSlots = exchange.getBody();
-        return vacantSlots;
+        ResponseEntity<List<SlotDTO>> exchange = restTemplate.exchange("http://localhost:8500/iot/api/v1/slots/vacantSlots", HttpMethod.GET, entity, parameterizedTypeReference);
+        List<SlotDTO> vacantSlotDTOS = exchange.getBody();
+        return vacantSlotDTOS;
     }
 
-    public Slot getCorrespondingSlots(long slotId) {
+    public SlotDTO getCorrespondingSlots(long slotId) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        ResponseEntity<Slot> exchange = restTemplate.exchange("http://localhost:8500/iot/api/v1/slots/" + slotId, HttpMethod.GET, entity, Slot.class);
+        ResponseEntity<SlotDTO> exchange = restTemplate.exchange("http://localhost:8500/iot/api/v1/slots/" + slotId, HttpMethod.GET, entity, SlotDTO.class);
         return exchange.getBody();
     }
 }

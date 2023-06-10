@@ -1,26 +1,26 @@
 package com.home.iot.services;
 
-import com.home.iot.domains.Device;
+import com.home.iot.domains.DeviceDTO;
 
 import java.util.List;
 
 public interface DeviceService {
 
-	List<Device> findAll();
+	List<DeviceDTO> findAll();
 
-	Device findDeviceById(long slotId, long deviceId) throws Exception;
+	DeviceDTO findDeviceById(long slotId, long deviceId) throws Exception;
 
 	// Add a device
-	Device save(Device device);
+	DeviceDTO save(DeviceDTO deviceDTO);
 
 	// Update device
-	Device updateDevice(long slotId, Device device);
+	DeviceDTO updateDevice(long slotId, DeviceDTO deviceDTO);
 
 	// Delete a device
 	String deleteDevice(long slotId, long deviceId);
 
 	// Register a device
-	Device addDeviceToSlot(long slotId, Device device);
+	DeviceDTO addDeviceToSlot(long slotId, DeviceDTO deviceDTO);
 
 	// Unregister a device --> Removing the device to the slot
 

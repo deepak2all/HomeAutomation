@@ -1,6 +1,6 @@
 package com.home.iot.repositories;
 
-import com.home.iot.domains.Device;
+import com.home.iot.domains.DeviceDTO;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -10,33 +10,33 @@ import java.util.stream.Collectors;
 @Repository
 public class DeviceRepository {
 
-    HashMap<Long, Device> devices = new HashMap<>();
+    HashMap<Long, DeviceDTO> devices = new HashMap<>();
 
-    public Device save(Device device) {
-        return devices.put(device.getDeviceId(), device);
+    public DeviceDTO save(DeviceDTO deviceDTO) {
+        return devices.put(deviceDTO.getDeviceId(), deviceDTO);
     }
 
-    public List<Device> findAll() {
+    public List<DeviceDTO> findAll() {
         return devices.values().stream()
                 .collect(Collectors.toList());
     }
 
-    public Device findDeviceById(long slotId, long deviceId) throws Exception {
+    public DeviceDTO findDeviceById(long slotId, long deviceId) throws Exception {
         return devices.values().stream()
                 .filter(x -> x.getSlotId() == slotId && x.getDeviceId() == deviceId)
                 .findAny()
                 .get();
     }
 
-    public Device addDeviceToSlot(long slotId, Device device) {
-        devices.put(device.getDeviceId(), device);
-        device.setSlotId(slotId);
-        return device;
+    public DeviceDTO addDeviceToSlot(long slotId, DeviceDTO deviceDTO) {
+        devices.put(deviceDTO.getDeviceId(), deviceDTO);
+        deviceDTO.setSlotId(slotId);
+        return deviceDTO;
     }
 
-    public Device updateDevice(Device device) {
-        devices.put(device.getDeviceId(), device);
-        return device;
+    public DeviceDTO updateDevice(DeviceDTO deviceDTO) {
+        devices.put(deviceDTO.getDeviceId(), deviceDTO);
+        return deviceDTO;
     }
 
     public String deleteDevice(long deviceId) {

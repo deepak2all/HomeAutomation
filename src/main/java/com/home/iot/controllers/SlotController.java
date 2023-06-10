@@ -1,6 +1,6 @@
 package com.home.iot.controllers;
 
-import com.home.iot.domains.Slot;
+import com.home.iot.domains.SlotDTO;
 import com.home.iot.exceptions.IncorrectInputException;
 import com.home.iot.services.SlotService;
 import io.swagger.annotations.Api;
@@ -33,25 +33,25 @@ public class SlotController {
 
     @PostMapping(value = "/slots", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ApiOperation(value = "Endpoint to add a slot")
-    public ResponseEntity<Slot> addSlot(@RequestBody Slot slot){
-        return ResponseEntity.ok().body(service.save(slot));
+    public ResponseEntity<SlotDTO> addSlot(@RequestBody SlotDTO slotDTO){
+        return ResponseEntity.ok().body(service.save(slotDTO));
     }
 
     @PutMapping(value = "/slots/{slotId}", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ApiOperation(value = "Endpoint to update a particular slot specifying the slotId")
-    public ResponseEntity<Slot> updateSlot(@RequestBody Slot slot){
-        return ResponseEntity.ok().body(service.update(slot));
+    public ResponseEntity<SlotDTO> updateSlot(@RequestBody SlotDTO slotDTO){
+        return ResponseEntity.ok().body(service.update(slotDTO));
     }
 
     @GetMapping("/slots")
     @ApiOperation(value = "Endpoint to get all the slots' info")
-    public ResponseEntity<Collection<Slot>> findAllSlots(){
+    public ResponseEntity<Collection<SlotDTO>> findAllSlots(){
         return ResponseEntity.ok().body(service.findAll());
     }
 
     @GetMapping("/slots/{slotId}")
     @ApiOperation(value = "Endpoint to get a particular slot's info by specifying it's slotId")
-    public ResponseEntity<Slot> findSlotById(
+    public ResponseEntity<SlotDTO> findSlotById(
             @PathVariable("slotId") @Min(value = 1, message = "id must be greater than or equal to 1") @Max(value = 1000, message = "id must be lower than or equal to 1000") String slotId){
         try {
             long id = Long.parseLong(slotId);
@@ -75,7 +75,7 @@ public class SlotController {
 
     @GetMapping("/slots/vacantSlots")
     @ApiOperation(value = "Endpoint to get all the vacant slots' info")
-    public ResponseEntity<Collection<Slot>> findVacantSlots(){
+    public ResponseEntity<Collection<SlotDTO>> findVacantSlots(){
         return ResponseEntity.ok().body(service.findVacantSlots());
     }
 

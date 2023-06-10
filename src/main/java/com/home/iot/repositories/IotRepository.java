@@ -1,17 +1,18 @@
 package com.home.iot.repositories;
 
-import com.home.iot.domains.Device;
-import com.home.iot.util.ApplicationConstants;
+import com.home.iot.domains.DeviceDTO;
 import com.home.iot.util.ExecutionStateRecorder;
 import org.springframework.stereotype.Repository;
+
+import static com.home.iot.util.ApplicationConstants.maxCacheSize;
 
 @Repository
 public class IotRepository {
 
-    public Device operateDevice(String slotId, Device device) {
+    public DeviceDTO operateDevice(String slotId, DeviceDTO deviceDTO) {
         // Save the data in cache
-        insertData(new ExecutionStateRecorder(device));
-        return device;
+        insertData(new ExecutionStateRecorder(deviceDTO));
+        return deviceDTO;
     }
 
     public String undoLastFewOperations(long undoOperationCount) {
@@ -25,7 +26,7 @@ public class IotRepository {
 
     private void captureUserActions(ExecutionStateRecorder recordedState) {
         // Ability to add 10 items
-        if (ExecutionStateRecorder.operationsRegister.size() < ApplicationConstants.maxCacheSize) {
+        if (ExecutionStateRecorder.operationsRegister.size() < maxCacheSize) {
             //Simply add the data
             ExecutionStateRecorder.operationsRegister.offer(recordedState);
         } else {

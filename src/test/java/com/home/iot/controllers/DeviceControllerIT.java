@@ -13,6 +13,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+/**
+ * These are sample Integration Tests
+ * The application should be up and running while executing the Integration Test cases
+ */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = HomeAutomationApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DeviceControllerIT {

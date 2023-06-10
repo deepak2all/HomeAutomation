@@ -1,7 +1,7 @@
 package com.home.iot;
 
-import com.home.iot.domains.Device;
-import com.home.iot.domains.Slot;
+import com.home.iot.domains.DeviceDTO;
+import com.home.iot.domains.SlotDTO;
 import com.home.iot.services.DeviceService;
 import com.home.iot.services.SlotService;
 import lombok.extern.log4j.Log4j2;
@@ -39,15 +39,15 @@ public class HomeAutomationApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		for (int i=1; i<=10; i++) {
-			slotService.save(new Slot(i, "Slot-"+i, "large"));
+			slotService.save(new SlotDTO(i, "Slot-"+i, "large"));
 		}
 
 		// Register a device
-		Device device1 = new Device (1, "Living Room Light 1", "On/Off", "ON", "Living Room Light is Switched ON");
-		deviceService.save(device1);
+		DeviceDTO deviceDTO1 = new DeviceDTO(1, "Living Room Light 1", "On/Off", "ON", "Living Room Light is Switched ON");
+		deviceService.save(deviceDTO1);
 
-		Device device10 = new Device (10, "Garage Door", "On/Off", "ON", "Garage Door is Open");
-		deviceService.save (device10);
+		DeviceDTO deviceDTO10 = new DeviceDTO(10, "Garage Door", "On/Off", "ON", "Garage Door is Open");
+		deviceService.save (deviceDTO10);
 
 	}
 
@@ -59,8 +59,8 @@ public class HomeAutomationApplication implements CommandLineRunner {
 	@PostConstruct
 	private void postConstruct() {
 		appInfo();
-		Device device8 = new Device (8, "WashingMachine", "On/Off", "OFF", "Washing Machine is Off");
-		deviceService.save (device8);
+		DeviceDTO deviceDTO8 = new DeviceDTO(8, "WashingMachine", "On/Off", "OFF", "Washing Machine is Off");
+		deviceService.save (deviceDTO8);
 	}
 
 	private void appInfo() {

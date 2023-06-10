@@ -1,6 +1,6 @@
 package com.home.iot.controllers;
 
-import com.home.iot.domains.Device;
+import com.home.iot.domains.DeviceDTO;
 import com.home.iot.services.DeviceService;
 import com.home.iot.services.SlotService;
 import org.junit.jupiter.api.Test;
@@ -36,14 +36,14 @@ public class DeviceControllerTest {
     @MockBean
     private SlotService slotService;
 
-    Device mockDevice = new Device (1, "Living Room Light 1", "On/Off", "ON", "Living Room Light is Switched ON");
+    DeviceDTO mockDeviceDTO = new DeviceDTO(1, "Living Room Light 1", "On/Off", "ON", "Living Room Light is Switched ON");
 
     String exampleJson = "{\"deviceId\":1,\"deviceName\":\"Living Room Light 1\",\"deviceType\":\"On/Off\",\"deviceStatus\":\"ON\",\"deviceInfo\":\"Living Room Light is Switched ON\",\"slotId\":0}";
 
     @Test
     public void retrieveDeviceDetails() throws Exception {
 
-        Mockito.when(deviceService.findDeviceById(Mockito.anyLong(), Mockito.anyLong())).thenReturn(mockDevice);
+        Mockito.when(deviceService.findDeviceById(Mockito.anyLong(), Mockito.anyLong())).thenReturn(mockDeviceDTO);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/iot/api/v1/slots/0/devices/1")
                 .accept(MediaType.APPLICATION_JSON);
@@ -60,7 +60,7 @@ public class DeviceControllerTest {
     public void createDevice() throws Exception {
 
         // deviceService.addDeviceToSlot to respond back with mockDevice
-        Mockito.when(deviceService.addDeviceToSlot(Mockito.anyLong(), Mockito.any(Device.class))).thenReturn(mockDevice);
+        Mockito.when(deviceService.addDeviceToSlot(Mockito.anyLong(), Mockito.any(DeviceDTO.class))).thenReturn(mockDeviceDTO);
 
         // Send device as body to /iot/api/v1/slots/0/devices/
         RequestBuilder requestBuilder = MockMvcRequestBuilders

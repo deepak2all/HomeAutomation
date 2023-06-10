@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class Slot {
+public class SlotDTO {
 
 	@Min(1)
 	@Max(1000)
@@ -15,15 +15,15 @@ public class Slot {
 	private String slotName;
 	private String slotType; // Long or short or medium-sized slots
 
-	private Device device;
+	private DeviceDTO deviceDTO;
 
-	public Slot(long slotId, String slotName, String slotType) {
+	public SlotDTO(long slotId, String slotName, String slotType) {
 		this.slotId = slotId;
 		this.slotName = slotName;
 		this.slotType = slotType;
 	}
 
-	public void setDevice(Device device) {
-		this.device = device;
+	public void setDeviceDTO(DeviceDTO deviceDTO) {
+		this.deviceDTO = deviceDTO;
 	}
 }

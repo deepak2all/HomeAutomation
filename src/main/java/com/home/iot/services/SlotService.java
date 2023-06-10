@@ -1,25 +1,25 @@
 package com.home.iot.services;
 
-import com.home.iot.domains.Slot;
+import com.home.iot.domains.SlotDTO;
 
 import java.util.List;
 
 public interface SlotService {
 
 	// Find all slots
-    List<Slot> findAll();
+    List<SlotDTO> findAll();
 
     // Find slot by Id
-    Slot findSlotById(long slotId) throws Exception;
+    SlotDTO findSlotById(long slotId) throws Exception;
 
 	// Find empty slots
-    List<Slot> findVacantSlots();
+    List<SlotDTO> findVacantSlots();
 
 	// Add slots
-    Slot save(Slot slot);
+    SlotDTO save(SlotDTO slotDTO);
 
     // Update slot
-    Slot update(Slot slot);
+    SlotDTO update(SlotDTO slotDTO);
 
     String deleteSlot(long id);
 

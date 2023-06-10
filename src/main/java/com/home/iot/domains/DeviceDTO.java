@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Data
 @NoArgsConstructor
-public class Device {
+public class DeviceDTO {
 
 	@Min(1)
 	@Max(1000)
@@ -31,7 +31,7 @@ public class Device {
 	@NotEmpty(message = "Slot id is required")
 	private long slotId;
 
-	public Device(long deviceId, String deviceName, String deviceType, String deviceStatus, String deviceInfo) {
+	public DeviceDTO(long deviceId, String deviceName, String deviceType, String deviceStatus, String deviceInfo) {
 		this.deviceId = deviceId;
 		this.deviceName = deviceName;
 		this.deviceType = deviceType;

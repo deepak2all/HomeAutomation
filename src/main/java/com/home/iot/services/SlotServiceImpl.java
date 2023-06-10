@@ -1,6 +1,6 @@
 package com.home.iot.services;
 
-import com.home.iot.domains.Slot;
+import com.home.iot.domains.SlotDTO;
 import com.home.iot.exceptions.IncorrectInputException;
 import com.home.iot.repositories.SlotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +20,13 @@ public class SlotServiceImpl implements SlotService {
     private SlotRepository slotRepository;
 
     @Override
-    public Slot save(Slot slot) {
-        return slotRepository.save(slot);
+    public SlotDTO save(SlotDTO slotDTO) {
+        return slotRepository.save(slotDTO);
     }
 
     @Override
-    public Slot update(Slot slot) {
-        return slotRepository.update(slot);
+    public SlotDTO update(SlotDTO slotDTO) {
+        return slotRepository.update(slotDTO);
     }
 
     @Override
@@ -39,17 +39,17 @@ public class SlotServiceImpl implements SlotService {
     }
 
     @Override
-    public List<Slot> findAll(){
+    public List<SlotDTO> findAll(){
         return slotRepository.findAll();
     }
 
     @Override
-    public Slot findSlotById(long slotId) throws Exception {
+    public SlotDTO findSlotById(long slotId) throws Exception {
         return slotRepository.findSlotById(slotId);
     }
 
     @Override
-    public List<Slot> findVacantSlots(){
+    public List<SlotDTO> findVacantSlots(){
         return slotRepository.findVacantSlots();
     }
 }
