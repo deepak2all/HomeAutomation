@@ -5,6 +5,7 @@ import com.home.iot.exceptions.IncorrectInputException;
 import com.home.iot.services.SlotService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,23 +27,38 @@ import java.util.Collection;
 @RequestMapping("iot/api/v1")
 @Validated
 @Api(value = "Slot Service", description = "To configure the slots remotely")
+@Log4j2
 public class SlotController {
 
     @Autowired
     private SlotService service;
 
+    /**
+     * Endpoint to add a slot
+     * @param slotDTO
+     * @return
+     */
     @PostMapping(value = "/slots", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ApiOperation(value = "Endpoint to add a slot")
     public ResponseEntity<SlotDTO> addSlot(@RequestBody SlotDTO slotDTO){
         return ResponseEntity.ok().body(service.save(slotDTO));
     }
 
+    /**
+     * Endpoint to update a remote slot by specifying the slotId
+     * @param slotDTO
+     * @return
+     */
     @PutMapping(value = "/slots/{slotId}", consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ApiOperation(value = "Endpoint to update a particular slot specifying the slotId")
     public ResponseEntity<SlotDTO> updateSlot(@RequestBody SlotDTO slotDTO){
         return ResponseEntity.ok().body(service.update(slotDTO));
     }
 
+    /**
+     * Endpoint to get all the slots along with the configurations
+     * @return
+     */
     @GetMapping("/slots")
     @ApiOperation(value = "Endpoint to get all the slots' info")
     public ResponseEntity<Collection<SlotDTO>> findAllSlots(){
@@ -57,7 +73,9 @@ public class SlotController {
             long id = Long.parseLong(slotId);
             return ResponseEntity.ok().body(service.findSlotById(id));
         } catch (Exception e) {
-            throw new IncorrectInputException("Incorrect input provided :: " + slotId);
+            String errorMsg = String.format("Incorrect slotId# %s provided", slotId);
+            log.error(errorMsg);
+            throw new IncorrectInputException(errorMsg);
         }
     }
 

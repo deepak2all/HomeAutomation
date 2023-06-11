@@ -31,9 +31,14 @@ public class IotServiceImpl  implements IotService{
     private IotRepository iotRepository;
 
     @Override
-    public DeviceDTO operateDevice(DeviceDTO deviceDTO, String slotId, String userAction) {
+    public DeviceDTO operateDevice(DeviceDTO deviceDTO, String slotId, String deviceId, String userAction) {
         log.info(String.format("Device %d in slot %s is being turned %s remotely"
                 , deviceDTO.getDeviceId(), slotId, userAction));
+
+        if(Long.parseLong(slotId) == 0 || deviceDTO.getSlotId() == 0
+        || Long.parseLong(deviceId) == 0 || deviceDTO.getDeviceId() == 0 ) {
+            throw new IncorrectInputException("The slotId / deviceID in the path / body cannot 0");
+        }
 
         if (userAction.equalsIgnoreCase("ON") || userAction.equalsIgnoreCase("OFF") ) {
             // Use RestTemplate to get check the slot
@@ -48,7 +53,9 @@ public class IotServiceImpl  implements IotService{
                 updateCorrespondingDevice(slotId, deviceDTOInDB);
                 return iotRepository.operateDevice(slotId, deviceDTOInDB);
             } else {
-                throw new IncorrectInputException("Slot Id provided :: " + slotId + " is either occupied or not present (invalid)");
+                String errorMsg = String.format("SlotId# %d provided is either incorrect or occupied", slotId );
+                log.error(errorMsg);
+                throw new IncorrectInputException(errorMsg);
             }
         } else {
             throw new IncorrectInputException("Specify the device state as 'ON' / 'OFF'");

@@ -78,7 +78,7 @@ public class HomeAutomationApplication implements CommandLineRunner {
 			System.setProperty("java.awt.headless", "false");
 			Desktop.getDesktop().browse(homepage);
 		} catch (URISyntaxException | IOException e) {
-			e.printStackTrace();
+			log.error("Issue with launching home page {}", e.getMessage());
 		}
 	}
 }

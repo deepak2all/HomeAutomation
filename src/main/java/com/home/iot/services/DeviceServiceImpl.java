@@ -5,6 +5,7 @@ import com.home.iot.domains.SlotDTO;
 import com.home.iot.exceptions.IncorrectInputException;
 import com.home.iot.repositories.DeviceRepository;
 import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
  * Additionally, business logic to configure devices, is stored in the service layer.
  */
 @Service
+@Log4j2
 public class DeviceServiceImpl implements DeviceService {
 
     @Autowired
@@ -46,6 +48,8 @@ public class DeviceServiceImpl implements DeviceService {
     @SneakyThrows
     @Override
     public String deleteDevice(long slotId, long deviceId) {
+        String infoMsg = String.format("Deleting device with slotId# %d and deviceID# %d ", slotId, deviceId);
+        log.info(infoMsg);
         DeviceDTO deviceDTO = deviceRepository.findDeviceById(slotId, deviceId);
         if(deviceDTO.getSlotId() != 0) {
             SlotDTO origSlotDTO = getCorrespondingSlots(slotId);
@@ -83,7 +87,9 @@ public class DeviceServiceImpl implements DeviceService {
             updateSlot(slotId, origSlotDTO);
             return deviceRepository.addDeviceToSlot(slotId, deviceDTO);
         } else {
-            throw new IncorrectInputException("Slot Id provided :: " + slotId + " is either occupied or not present (invalid)");
+            String errorMsg = String.format("SlotId# %d provided is either incorrect or occupied", slotId );
+            log.error(errorMsg);
+            throw new IncorrectInputException(errorMsg);
         }
     }
 

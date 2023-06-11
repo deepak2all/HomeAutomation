@@ -45,7 +45,8 @@ public class IotControllerTest {
     @Test
     public void operateToTurnOnADevice() throws Exception {
 
-        Mockito.when(iotService.operateDevice(Mockito.any(DeviceDTO.class), Mockito.anyString(), Mockito.anyString())).thenReturn(mockDeviceDTO);
+        Mockito.when(iotService.operateDevice(Mockito.any(DeviceDTO.class), Mockito.anyString(),
+                Mockito.anyString(), Mockito.anyString())).thenReturn(mockDeviceDTO);
 
         MvcResult result = mockMvc.perform( MockMvcRequestBuilders
                         .put("/iot/api/v1/operateDevice/slots/{slotId}/devices/{deviceId}/{userAction}", 0, 1, "ON")
