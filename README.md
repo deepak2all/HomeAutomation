@@ -46,6 +46,10 @@ mvn spring-boot:run
 
 # Project Documentation
 
+## Design and architecture documents
+
+*https://github.com/deepak2all/HomeAutomation/tree/master/documents*
+
 ## End-points for testing using postman
 
 *https://documenter.getpostman.com/view/10383827/2s93sabtT5*
