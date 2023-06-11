@@ -13,17 +13,19 @@ Procedure to build microservice(s) using spring boot and JAVA 11, for home autom
 
 *2. Java 11*
 
-*3. Swagger for documentation*
+*3. Apache maven for building the project*
 
-*4. REST API operations*
+*4. Swagger for documentation*
 
-*5. Logging*
+*5. REST API operations*
 
-*6. Jakarta for request validation*
+*6. Logging*
 
-*7. Actuator for application monitoring*
+*7. Jakarta for request validation*
 
-*8. Testing using Postman, CURL and RESTTemplate*
+*8. Actuator for application monitoring*
+
+*9. Testing using Postman, CURL and RESTTemplate*
 
 
 ## Installation and execution
