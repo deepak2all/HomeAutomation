@@ -44,7 +44,11 @@ mvn spring-boot:run
 
 # Project Documentation
 
-## End-points from postman
+## End-points for testing using postman
+
+*https://documenter.getpostman.com/view/10383827/2s93sabtT5*
+
+## Postman Collection as JSON
 
 *https://github.com/deepak2all/HomeAutomation/blob/master/documents/HomeAutomation.postman_collection.json*
 
