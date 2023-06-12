@@ -29,7 +29,7 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Home Automation Service")
+                .title("Home Automation Service Hub")
                 .description("Documentation Generated Using SWAGGER2 for our Home Automation Rest APIs")
                 .termsOfServiceUrl("The terms and conditions agreement outlines the website administrator's rules regarding user behavior and provides information about the actions")
                 .license("Application Monitoring Urls")
