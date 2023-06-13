@@ -27,6 +27,10 @@ Procedure to build microservice(s) using spring boot and JAVA 11, for home autom
 
 *9. Testing using Postman, CURL and RESTTemplate*
 
+*10. Junit and Mockito for unit tests*
+
+*11. Jacoco for test coverage*
+
 
 ## Installation and execution
 
