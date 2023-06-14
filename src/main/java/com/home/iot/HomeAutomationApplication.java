@@ -4,6 +4,7 @@ import com.home.iot.domains.DeviceDTO;
 import com.home.iot.domains.SlotDTO;
 import com.home.iot.services.DeviceService;
 import com.home.iot.services.SlotService;
+import com.home.iot.util.DeviceStatus;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -43,10 +44,10 @@ public class HomeAutomationApplication implements CommandLineRunner {
 		}
 
 		// Register a device
-		DeviceDTO deviceDTO1 = new DeviceDTO(1, "Living Room Light 1", "On/Off", "ON", "Living Room Light is Switched ON");
+		DeviceDTO deviceDTO1 = new DeviceDTO(1, "Living Room Light 1", "On/Off", DeviceStatus.ON, "Living Room Light is Switched ON");
 		deviceService.save(deviceDTO1);
 
-		DeviceDTO deviceDTO10 = new DeviceDTO(10, "Garage Door", "On/Off", "ON", "Garage Door is Open");
+		DeviceDTO deviceDTO10 = new DeviceDTO(10, "Garage Door", "On/Off", DeviceStatus.ON, "Garage Door is Open");
 		deviceService.save (deviceDTO10);
 
 	}
@@ -59,7 +60,7 @@ public class HomeAutomationApplication implements CommandLineRunner {
 	@PostConstruct
 	private void postConstruct() {
 		appInfo();
-		DeviceDTO deviceDTO8 = new DeviceDTO(8, "WashingMachine", "On/Off", "OFF", "Washing Machine is Off");
+		DeviceDTO deviceDTO8 = new DeviceDTO(8, "WashingMachine", "On/Off", DeviceStatus.OFF, "Washing Machine is Off");
 		deviceService.save (deviceDTO8);
 	}
 

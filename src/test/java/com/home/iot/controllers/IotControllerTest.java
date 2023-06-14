@@ -4,6 +4,7 @@ import com.home.iot.domains.DeviceDTO;
 import com.home.iot.services.DeviceService;
 import com.home.iot.services.IotService;
 import com.home.iot.services.SlotService;
+import com.home.iot.util.DeviceStatus;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -38,7 +39,7 @@ public class IotControllerTest {
     @MockBean
     private SlotService slotService;
 
-    DeviceDTO mockDeviceDTO = new DeviceDTO(1, "Living Room Light 1", "On/Off", "ON", "Living Room Light is Switched ON");
+    DeviceDTO mockDeviceDTO = new DeviceDTO(1, "Living Room Light 1", "On/Off", DeviceStatus.ON, "Living Room Light is Switched ON");
 
     String exampleJson = "{\"deviceId\":1,\"deviceName\":\"Living Room Light 1\",\"deviceType\":\"On/Off\",\"deviceStatus\":\"ON\",\"deviceInfo\":\"Living Room Light is Switched ON\",\"slotId\":1}";
 

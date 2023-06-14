@@ -1,5 +1,6 @@
 package com.home.iot.domains;
 
+import com.home.iot.util.DeviceStatus;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
@@ -23,7 +24,7 @@ public class DeviceDTO {
 	private String deviceType; // OnOff type / Rotary switch
 
 	@NotEmpty(message = "Device Status is required")
-	private String deviceStatus;
+	private DeviceStatus deviceStatus;
 
 	@NotEmpty(message = "Device Info is required")
 	private String deviceInfo;
@@ -31,7 +32,7 @@ public class DeviceDTO {
 	@NotEmpty(message = "Slot id is required")
 	private long slotId;
 
-	public DeviceDTO(long deviceId, String deviceName, String deviceType, String deviceStatus, String deviceInfo) {
+	public DeviceDTO(long deviceId, String deviceName, String deviceType, @NotEmpty DeviceStatus deviceStatus, String deviceInfo) {
 		this.deviceId = deviceId;
 		this.deviceName = deviceName;
 		this.deviceType = deviceType;
@@ -43,7 +44,7 @@ public class DeviceDTO {
 		this.slotId = slotId;
 	}
 
-	public void setDeviceStatus(String deviceStatus) {
+	public void setDeviceStatus(DeviceStatus deviceStatus) {
 		this.deviceStatus = deviceStatus;
 	}
 

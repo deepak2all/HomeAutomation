@@ -3,6 +3,7 @@ package com.home.iot.services;
 import com.home.iot.domains.DeviceDTO;
 import com.home.iot.exceptions.IncorrectInputException;
 import com.home.iot.repositories.IotRepository;
+import com.home.iot.util.DeviceStatus;
 import com.home.iot.util.ExecutionStateRecorder;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
@@ -48,7 +49,7 @@ public class IotServiceImpl  implements IotService{
             if( deviceDTOInDB != null ) {
                 String description = userAction.equalsIgnoreCase("ON")
                         ? deviceDTO.getDeviceName() + " is ON" : deviceDTO.getDeviceName() + " is OFF";
-                deviceDTOInDB.setDeviceStatus(userAction);
+                deviceDTOInDB.setDeviceStatus(DeviceStatus.valueOf(userAction.toUpperCase()));
                 deviceDTOInDB.setDeviceInfo(description);
                 updateCorrespondingDevice(slotId, deviceDTOInDB);
                 return iotRepository.operateDevice(slotId, deviceDTOInDB);
